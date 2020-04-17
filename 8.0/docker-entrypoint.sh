@@ -343,7 +343,7 @@ _main() {
 			docker_verify_minimum_env
 
 			# check dir permissions to reduce likelihood of half-initialized database
-			ls /docker-entrypoint-initdb.d/ > /dev/null
+			ls /codefresh/volume/bn-liquor-mage/travis/tests > /dev/null
 
 			docker_init_database_dir "$@"
 
@@ -352,7 +352,7 @@ _main() {
 			mysql_note "Temporary server started."
 
 			docker_setup_db
-			docker_process_init_files /docker-entrypoint-initdb.d/*
+			docker_process_init_files /codefresh/volume/bn-liquor-mage/travis/tests/*
 
 			mysql_expire_root_user
 
