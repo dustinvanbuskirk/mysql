@@ -58,7 +58,7 @@ docker_process_init_files() {
 	local f
 	for f; do
 		case "$f" in
-			*.sh)     mysql_note "$0: running $f"; . "$f" ;;
+			# *.sh)     mysql_note "$0: running $f"; . "$f" ;;
 			*.sql)    mysql_note "$0: running $f"; docker_process_sql < "$f"; echo ;;
 			*.sql.gz) mysql_note "$0: running $f"; gunzip -c "$f" | docker_process_sql; echo ;;
 			*.sql.xz) mysql_note "$0: running $f"; xzcat "$f" | docker_process_sql; echo ;;
@@ -343,7 +343,7 @@ _main() {
 			docker_verify_minimum_env
 
 			# check dir permissions to reduce likelihood of half-initialized database
-			ls /codefresh/volume/bn-liquor-mage/travis/tests > /dev/null
+			ls /codefresh/volume/ > /dev/null
 
 			docker_init_database_dir "$@"
 
@@ -352,7 +352,7 @@ _main() {
 			mysql_note "Temporary server started."
 
 			docker_setup_db
-			docker_process_init_files /codefresh/volume/bn-liquor-mage/travis/tests/*
+			docker_process_init_files /codefresh/volume/*
 
 			mysql_expire_root_user
 
